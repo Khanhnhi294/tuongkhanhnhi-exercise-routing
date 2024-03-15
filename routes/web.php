@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FruitController;
+use App\Models\Fruit;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +18,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 //Mission 1
 Route::get('users', function () {
     global $users;
@@ -76,7 +79,7 @@ Route::prefix('user')->group(function () {
         return 'You can not get a user like this';
     })->where('any', '.*');
 });
-
+//Mission 6
 Route::get('/{userIndex?}/post/{postIndex?}', function ($userIndex = null, $postIndex = null) {
         global $users;
         foreach ($users as $index => $user) {
@@ -94,3 +97,12 @@ Route::get('/{userIndex?}/post/{postIndex?}', function ($userIndex = null, $post
     Route::fallback(function () {
         return "You cannot get a user like this !";
     });
+
+    // ======================== MVC01============
+
+Route::get('/fruits', function() {
+return Fruit::all();
+});
+
+
+Route::get('/showFruits', [FruitController::class, 'getFruits']);
